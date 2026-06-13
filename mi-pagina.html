@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DA NI TA — Links</title>
+<!--
+  ════════════════════════════════════════════════════════════
+  PÁGINA LINK-IN-BIO  ·  Personalizable
+  Para cambiar tu información busca la sección "CONFIG" en el
+  <script> al final del archivo. Para tus fotos, reemplaza los
+  bloques .placeholder por <img src="tu-foto.jpg">.
+  ════════════════════════════════════════════════════════════
+-->
+<style>
+  :root{
+    --bg:#000;
+    --card:#111114;
+    --text:#fff;
+    --muted:#9b9ba3;
+    --pink1:#ff9ecb;
+    --pink2:#ff6fb5;
+    --pink3:#f74f9e;
+    --pink4:#e91e8c;
+    --pink5:#c2185b;
+    --pink6:#8e0e44;
+    --radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:#1a1a1c;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    display:flex;justify-content:center;
+    min-height:100vh;
+  }
+  /* fondo difuminado tipo app */
+  .backdrop{
+    position:fixed;inset:0;z-index:-1;
+    background:linear-gradient(120deg,#3a2d22,#1c1c20 40%,#2b2126 70%,#3a2d22);
+    filter:saturate(.8);
+  }
+  .phone{
+    position:relative;
+    width:100%;max-width:640px;
+    background:var(--bg);
+    min-height:100vh;
+    box-shadow:0 0 80px rgba(0,0,0,.8);
+  }
+
+  /* ───── HERO ───── */
+  .hero{position:relative;}
+  .hero .photo{
+    width:100%;aspect-ratio:4/4.4;display:block;object-fit:cover;
+    object-position:50% 18%;
+  }
+  .hero .placeholder{
+    width:100%;aspect-ratio:4/4.4;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 30% 25%,#5c4a52,#26222b 70%);
+    color:#777;font-size:15px;letter-spacing:1px;
+  }
+  .hero .fade{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.65) 80%,#000 100%);
+    pointer-events:none;
+  }
+  .hero .id{
+    position:absolute;left:0;right:0;bottom:14px;text-align:center;
+  }
+  .hero h1{
+    font-size:34px;font-weight:800;letter-spacing:.5px;
+    display:inline-flex;align-items:center;gap:8px;
+    text-shadow:0 2px 12px rgba(0,0,0,.7);
+  }
+  .badge{
+    width:24px;height:24px;border-radius:50%;
+    background:#7b6cf6;display:inline-flex;align-items:center;justify-content:center;
+    font-size:13px;color:#fff;
+  }
+  .handle{color:var(--muted);font-size:15px;margin-top:2px;}
+
+  /* ───── ICONOS SOCIALES ───── */
+  .socials{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+    padding:18px 16px 6px;
+  }
+  .socials a{
+    width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;text-decoration:none;
+    transition:transform .15s;
+  }
+  .socials a:hover{transform:scale(1.12);}
+  .socials svg{width:21px;height:21px;fill:currentColor;}
+  .ic-of{background:linear-gradient(135deg,#4aa8ff,#1d7fe8);}
+  .ic-threads{background:#000;border:1.5px solid #333;}
+  .ic-patreon{background:#f1465a;}
+  .ic-ig{background:radial-gradient(circle at 30% 110%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%);}
+  .ic-fb{background:#1877f2;}
+  .ic-x{background:#000;border:1.5px solid #333;}
+  .ic-tt{background:#000;border:1.5px solid #333;}
+  .ic-twitch{background:#9146ff;}
+  .ic-dl{background:#e6202f;}
+  .ic-me{background:linear-gradient(135deg,#ffb347,#ff5e9c);}
+  .ic-snap{background:#fffc00;color:#000!important;}
+
+  /* ───── SEGUIDORES ───── */
+  .followers{
+    text-align:center;padding:14px 0 4px;cursor:pointer;user-select:none;
+  }
+  .followers .total{font-size:17px;}
+  .followers b{font-weight:800;}
+  .followers .chev{display:inline-block;transition:transform .25s;font-size:12px;color:var(--muted);margin-left:6px;}
+  .followers.open .chev{transform:rotate(180deg);}
+  .breakdown{
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+    font-size:14px;color:var(--muted);
+  }
+  .followers.open .breakdown{max-height:200px;}
+  .breakdown div{padding:3px 0;}
+  .bio{
+    text-align:center;font-family:Georgia,'Times New Roman',serif;
+    font-weight:700;font-size:17px;padding:16px 20px 6px;
+  }
+
+  /* ───── TARJETAS DE ENLACE ───── */
+  .links{padding:18px 14px 8px;display:flex;flex-direction:column;gap:14px;}
+  .card{
+    position:relative;display:block;border-radius:var(--radius);
+    overflow:hidden;text-decoration:none;color:#fff;
+    transition:transform .15s;
+  }
+  .card:hover{transform:scale(1.015);}
+  .card .ph{
+    width:100%;aspect-ratio:16/10;
+    display:flex;align-items:center;justify-content:center;
+    color:#888;font-size:14px;letter-spacing:1px;
+  }
+  .card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;}
+  .card .label{
+    position:absolute;left:0;right:0;bottom:12px;text-align:center;
+    font-size:19px;font-weight:800;letter-spacing:.5px;
+    text-shadow:0 2px 10px rgba(0,0,0,.85);
+  }
+  .card .corner{
+    position:absolute;top:12px;left:12px;width:36px;height:36px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.4);
+  }
+  .card .corner svg{width:18px;height:18px;fill:currentColor;}
+  .card .shade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.55));}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .row2 .card .ph,.row2 .card img{aspect-ratio:1/1;}
+  .row2 .label{font-size:15px!important;}
+  /* placeholders de tarjetas */
+  .g1{background:radial-gradient(circle at 60% 30%,#4e5d49,#222a20 75%);}
+  .g2{background:radial-gradient(circle at 50% 35%,#a8542d,#3d1d10 75%);}
+  .g3{background:radial-gradient(circle at 40% 30%,#6d4a7e,#2a1d33 75%);}
+  .g4{background:radial-gradient(circle at 55% 35%,#42566e,#1b2330 75%);}
+  .g5{background:radial-gradient(circle at 50% 30%,#6e4444,#2d1b1b 75%);}
+
+  /* ───── BOTONES PÍLDORA ───── */
+  .pills{padding:8px 14px;display:flex;flex-direction:column;gap:13px;}
+  .pill{
+    position:relative;display:flex;align-items:center;justify-content:center;
+    height:54px;border-radius:999px;
+    font-size:18px;font-weight:800;color:#fff;text-decoration:none;
+    transition:transform .15s,filter .15s;
+  }
+  .pill:hover{transform:scale(1.02);filter:brightness(1.08);}
+  .pill .pic{
+    position:absolute;left:7px;top:7px;width:40px;height:40px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .pill .pic svg{width:19px;height:19px;fill:currentColor;}
+  .p1{background:var(--pink1);}
+  .p2{background:var(--pink2);}
+  .p3{background:var(--pink3);}
+  .p4{background:var(--pink4);}
+  .p5{background:#d81b7a;}
+  .p6{background:var(--pink5);}
+  .p7{background:var(--pink6);}
+
+  /* ───── GALERÍA ───── */
+  .gallery-wrapper {
+    position:relative;
+    width:100%;
+  }
+  .gallery{
+    display:flex;gap:12px;overflow-x:auto;padding:18px 14px;
+    scrollbar-width:none;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    cursor:grab;
+  }
+  .gallery::-webkit-scrollbar{display:none;}
+  .gallery:active{
+    cursor:grabbing;
+  }
+  .shot{
+    flex:0 0 150px;height:190px;border-radius:14px;overflow:hidden;
+    scroll-snap-align:start;
+    display:flex;align-items:center;justify-content:center;
+    user-select:none;
+  }
+  .shot img{
+    width:100%;height:100%;object-fit:cover;
+    pointer-events:none;
+  }
+  .gallery-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.15);
+    color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;z-index:10;transition:background .2s,opacity .2s;
+    user-select:none;backdrop-filter:blur(4px);line-height:1;
+  }
+  .gallery-nav:hover{background:rgba(0,0,0,0.85);}
+  .gallery-nav.prev{left:8px;}
+  .gallery-nav.next{right:8px;}
+  @media (hover:none){
+    .gallery-nav{display:none;}
+  }
+  .s1{background:radial-gradient(circle at 40% 30%,#7e4a3a,#2e1c16 80%);}
+  .s2{background:radial-gradient(circle at 60% 40%,#8a7444,#332b17 80%);}
+  .s3{background:radial-gradient(circle at 50% 30%,#3f5e46,#16241a 80%);}
+  .s4{background:radial-gradient(circle at 45% 35%,#7e3a6a,#2e1626 80%);}
+  .s5{background:radial-gradient(circle at 55% 30%,#3a5a7e,#16222e 80%);}
+
+  /* ───── EMAIL ───── */
+  .connect{padding:4px 14px 10px;}
+  .connect form{
+    display:flex;align-items:center;background:#fff;border-radius:999px;
+    padding:5px;gap:6px;
+  }
+  .connect input{
+    flex:1;border:0;outline:0;background:transparent;
+    padding:10px 14px;font-size:15px;color:#333;
+  }
+  .connect button{
+    border:0;border-radius:999px;background:#16161a;color:#fff;
+    font-weight:700;font-size:14px;padding:11px 18px;cursor:pointer;
+    display:flex;align-items:center;gap:8px;white-space:nowrap;
+  }
+  .connect button:hover{background:#2a2a30;}
+  .mailbar{
+    margin:8px 14px 0;background:var(--card);border-radius:16px;
+    padding:16px 18px;display:flex;align-items:center;gap:10px;
+    color:#fff;text-decoration:none;font-weight:600;font-size:15px;
+  }
+  .mailbar:hover{background:#1a1a1f;}
+  .mailbar svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.6;}
+
+  footer{
+    text-align:center;color:#6b6b73;font-size:12.5px;padding:26px 0 34px;
+  }
+  footer a{color:#9b9ba3;text-decoration:underline;}
+
+  /* ───── POPUP DE EDAD ULTRA-PREMIUM ───── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 9999; padding: 24px;
+  }
+  .modal-overlay.open {
+    opacity: 1; pointer-events: auto;
+  }
+  .modal-box {
+    background: rgba(20, 20, 22, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 28px;
+    width: 100%; max-width: 380px; padding: 36px 28px; text-align: center;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 80px rgba(233, 30, 140, 0.1);
+    transform: scale(0.92) translateY(15px); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modal-overlay.open .modal-box {
+    transform: scale(1) translateY(0);
+  }
+  .modal-badge {
+    width: 68px; height: 68px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(233, 30, 140, 0.2), rgba(194, 24, 91, 0.2));
+    border: 1px solid rgba(233, 30, 140, 0.4); display: inline-flex; align-items: center; justify-content: center;
+    font-size: 32px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(233, 30, 140, 0.3);
+    animation: pulseGlow 2s infinite alternate;
+  }
+  @keyframes pulseGlow {
+    from { box-shadow: 0 0 15px rgba(233, 30, 140, 0.2); transform: scale(1); }
+    to { box-shadow: 0 0 25px rgba(233, 30, 140, 0.45); transform: scale(1.04); }
+  }
+  .modal-title {
+    font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 12px; letter-spacing: 0.5px;
+  }
+  .modal-text {
+    font-size: 14.5px; color: #a1a1aa; line-height: 1.6; margin-bottom: 28px; font-weight: 400;
+  }
+  .modal-buttons {
+    display: flex; gap: 12px;
+  }
+  .modal-btn {
+    flex: 1; border: 0; outline: 0; border-radius: 999px; padding: 14px;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modal-btn.confirm {
+    background: linear-gradient(135deg, #ff6fb5, #e91e8c); color: #fff;
+    box-shadow: 0 8px 20px rgba(233, 30, 140, 0.3);
+  }
+  .modal-btn.confirm:hover {
+    transform: translateY(-2px); box-shadow: 0 12px 24px rgba(233, 30, 140, 0.45);
+  }
+  .modal-btn.cancel {
+    background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); color: #d4d4d8;
+  }
+  .modal-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.12); color: #fff;
+  }
+  .modal-btn:active {
+    transform: translateY(1px);
+  }
+
+  /* ───── LANGUAGE SELECTOR ───── */
+  .lang-selector {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+    display: flex;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 3px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .lang-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 0.5px;
+  }
+  .lang-btn.active {
+    background: linear-gradient(135deg, #ff6fb5, #e91e8c);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(233, 30, 140, 0.4);
+  }
+  .lang-btn:hover:not(.active) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+</style>
+</head>
+<body>
+<div class="backdrop"></div>
+<main class="phone">
+  <div class="lang-selector">
+    <button id="lang-es" class="lang-btn" onclick="changeLanguage('es')">ES</button>
+    <button id="lang-en" class="lang-btn" onclick="changeLanguage('en')">EN</button>
+  </div>
+
+  <!-- HERO : reemplaza .placeholder por <img class="photo" src="tu-foto.jpg" alt=""> -->
+  <header class="hero">
+    <img class="photo" src="img/principal.jpg" alt="Tu Flakita"
+         onerror="this.outerHTML='&lt;div class=&quot;placeholder&quot;&gt;TU FOTO PRINCIPAL AQUÍ (guárdala como img/principal.jpg)&lt;/div&gt;'">
+    <div class="fade"></div>
+    <div class="id">
+      <h1 id="name">DA NI TA <span class="badge">✔</span></h1>
+      <div class="handle" id="handle">@TuFlakita</div>
+    </div>
+  </header>
+
+  <!-- ICONOS SOCIALES -->
+  <nav class="socials" id="socialIcons">
+    <a class="ic-ig" href="https://www.instagram.com/danitatuflakita" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.3.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.3-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.3-.4 1.2-.1 1.6-.1 4.8-.1zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.5.2-1.8.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.3-.3.7-.3 1.8-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.5.3 1.8.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.1.7.3 1.8.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.5-.2 1.8-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.3.3-.7.3-1.8.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.5-.3-1.8-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.3-.1-.7-.3-1.8-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.1a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 8.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.4-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></a>
+    <a class="ic-fb" href="https://www.facebook.com/danitaTuFlakita" target="_blank" rel="noopener" title="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V5c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.5v3h2.8v7h2.2z"/></svg></a>
+    <a class="ic-x" href="https://x.com/danita_tuFlaqui" target="_blank" rel="noopener" title="X / Twitter"><svg viewBox="0 0 24 24"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-6.1l-4.8-6.3L5.3 21h-3l7-8.1L2.5 3h6.2l4.3 5.7L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/></svg></a>
+    <a class="ic-tt" href="https://www.tiktok.com/@danitatuflakita" target="_blank" rel="noopener" title="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z"/></svg></a>
+  </nav>
+
+  <!-- SEGUIDORES
+  <div class="followers" id="followers" onclick="this.classList.toggle('open')">
+    <div class="total"><b id="followerCount">1.1M</b> <span data-i18n="followersTotal">Seguidores en total</span> <span class="chev">▼</span></div>
+    <div class="breakdown">
+      <div data-i18n="followersIg">Instagram · 520K</div>
+      <div data-i18n="followersTk">TikTok · 310K</div>
+      <div data-i18n="followersX">Twitter/X · 180K</div>
+    </div>
+  </div>
+  -->
+
+  <p class="bio" id="bio" data-i18n="bio">Escríbeme por DM en mi página ❤</p>
+
+  <!-- TARJETAS GRANDES -->
+  <section class="links">
+    <a class="card" href="#" onclick="abrirVerificacionEdad(event)">
+      <img src="img/danita1.jpg" alt="Contenido Exclusivo">
+      <div class="shade"></div>
+      <span class="corner ic-of"><svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 5a3 3 0 1 1 6 0v3H9V7z"/></svg></span>
+      <span class="label" data-i18n="exclusiveCard">💙 CONTENIDO EXCLUSIVO 💙</span>
+    </a>
+
+    <div class="row2">
+      <a class="card" href="#" onclick="abrirProximamente(event)">
+        <img src="img/danita.jpg" alt="Otra página gratis">
+      </a>
+      <a class="card" href="#" onclick="abrirProximamente(event)">
+        <img src="img/packs_digitales.jpg" alt="PACKS digitales">
+      </a>
+    </div>
+  </section>
+
+  <!-- BOTONES PÍLDORA -->
+  <section class="pills">
+    <a class="pill p1" href="https://www.instagram.com/danitatuflakita" target="_blank" rel="noopener"><span class="pic ic-ig"><svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4zm0 7.6a2.9 2.9 0 1 1 0-5.8 2.9 2.9 0 0 1 0 5.8zM18.4 7a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM12 4.1c2.6 0 2.9 0 3.9.1.9 0 1.4.2 1.8.3.4.2.7.4 1 .7.3.3.5.6.7 1 .1.4.3.9.3 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c0 .9-.2 1.4-.3 1.8-.2.4-.4.7-.7 1-.3.3-.6.5-1 .7-.4.1-.9.3-1.8.3-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-.9 0-1.4-.2-1.8-.3-.4-.2-.7-.4-1-.7-.3-.3-.5-.6-.7-1-.1-.4-.3-.9-.3-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c0-.9.2-1.4.3-1.8.2-.4.4-.7.7-1 .3-.3.6-.5 1-.7.4-.1.9-.3 1.8-.3 1-.1 1.3-.1 3.9-.1z"/></svg></span>Instagram</a>
+    <a class="pill p3" href="https://x.com/danita_tuFlaqui" target="_blank" rel="noopener"><span class="pic ic-x"><svg viewBox="0 0 24 24"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-6.1l-4.8-6.3L5.3 21h-3l7-8.1L2.5 3h6.2l4.3 5.7L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/></svg></span>Twitter/X</a>
+    <a class="pill p4" href="https://www.tiktok.com/@danitatuflakita" target="_blank" rel="noopener"><span class="pic ic-tt"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z"/></svg></span>TikTok</a>
+    <a class="pill p5" href="https://www.facebook.com/danitaTuFlakita" target="_blank" rel="noopener"><span class="pic ic-fb"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V5c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.5v3h2.8v7h2.2z"/></svg></span>Facebook</a>
+  </section>
+
+  <!-- GALERÍA -->
+  <div class="gallery-wrapper">
+    <button class="gallery-nav prev" id="galleryPrev" aria-label="Anterior">‹</button>
+    <section class="gallery" id="gallery">
+      <div class="shot"><img src="img/gallery1.jpg" alt="Foto 1"></div>
+      <div class="shot"><img src="img/gallery2.jpg" alt="Foto 2"></div>
+      <div class="shot"><img src="img/gallery3.jpg" alt="Foto 3"></div>
+      <div class="shot"><img src="img/gallery4.jpg" alt="Foto 4"></div>
+      <div class="shot"><img src="img/gallery5.jpg" alt="Foto 5"></div>
+    </section>
+    <button class="gallery-nav next" id="galleryNext" aria-label="Siguiente">›</button>
+  </div>
+
+  <!-- CONEXIÓN POR EMAIL -->
+  <section class="connect">
+    <form onsubmit="suscribir(event)">
+      <input type="email" id="fanEmail" placeholder="tu@email.com" required data-i18n-placeholder="emailPlaceholder">
+      <button type="submit" id="emailBtn"><span data-i18n="emailButton">Conectar conmigo 💌</span></button>
+    </form>
+  </section>
+
+  <a class="mailbar" id="mailLink" href="mailto:tuflakita@outlook.com">
+    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+    <span id="mailText">tuflakita@outlook.com</span>
+  </a>
+
+  <footer>
+    <a href="#" data-i18n="privacyPolicy">Política de privacidad</a> | <a href="#" data-i18n="terms">Términos</a> | <a href="#" data-i18n="report">Reportar</a>
+  </footer>
+</main>
+
+<!-- MODAL VERIFICACIÓN DE EDAD -->
+<div class="modal-overlay" id="ageModal">
+  <div class="modal-box">
+    <div class="modal-badge">🔞</div>
+    <div class="modal-title" data-i18n="modalTitle">Contenido Adultos</div>
+    <div class="modal-text" data-i18n="modalText">Este enlace contiene material exclusivo para mayores de 18 años. ¿Confirmas que eres mayor de edad para ingresar?</div>
+    <div class="modal-buttons">
+      <button class="modal-btn cancel" id="ageCancelBtn" data-i18n="modalCancel">No, salir</button>
+      <button class="modal-btn confirm" id="ageConfirmBtn" data-i18n="modalConfirm">Sí, ingresar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRÓXIMAMENTE -->
+<div class="modal-overlay" id="soonModal">
+  <div class="modal-box">
+    <div class="modal-badge" style="background: linear-gradient(135deg, rgba(255, 111, 181, 0.2), rgba(233, 30, 140, 0.2)); border: 1px solid rgba(255, 111, 181, 0.4); box-shadow: 0 0 20px rgba(255, 111, 181, 0.3);">✨</div>
+    <div class="modal-title" data-i18n="soonTitle">Muy pronto</div>
+    <div class="modal-text" data-i18n="soonText">¡Próximamente más contenido exclusivo para ustedes! Mantente al tanto. ❤</div>
+    <div class="modal-buttons">
+      <button class="modal-btn confirm" id="soonCloseBtn" data-i18n="soonClose">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════ CONFIG ════════════
+   Cambia aquí tus datos. Los enlaces de los botones y tarjetas
+   se editan directamente en los href="#" de arriba.
+   Para personalizar los textos en distintos idiomas (ES / EN),
+   edita el diccionario "TRANSLATIONS" más abajo.               */
+const CONFIG = {
+  nombre:   "DA NI TA",
+  usuario:  "@danitatuflakita",
+  seguidores: "1.0M",
+  email:    "tuflakita@outlook.com",
+};
+/* ════════════════════════════════ */
+
+const TRANSLATIONS = {
+  es: {
+    title: "Enlaces",
+    bio: "Escríbeme por DM en mi página ❤",
+    followersTotal: "Seguidores en total",
+    followersIg: "Instagram · 520K",
+    followersTk: "TikTok · 310K",
+    followersX: "Twitter/X · 180K",
+    exclusiveCard: "💙 CONTENIDO EXCLUSIVO 💙",
+    freePageCard: "OTRA página gratis",
+    digitalPacksCard: "PACKS digitales",
+    emailPlaceholder: "tu@email.com",
+    emailButton: "Conectar conmigo 💌",
+    alertThankYou: "¡Gracias! Registramos: ",
+    alertConnect: "\n(Conecta este formulario a tu servicio de email favorito)",
+    modalTitle: "Contenido Adultos",
+    modalText: "Este enlace contiene material exclusivo para mayores de 18 años. ¿Confirmas que eres mayor de edad para ingresar?",
+    modalCancel: "No, salir",
+    modalConfirm: "Sí, ingresar",
+    soonTitle: "Muy pronto",
+    soonText: "¡Muy pronto más contenido exclusivo para ustedes! Mantente al tanto. ❤",
+    soonClose: "Entendido",
+    privacyPolicy: "Política de privacidad",
+    terms: "Términos",
+    report: "Reportar"
+  },
+  en: {
+    title: "Links",
+    bio: "Write me a DM on my page ❤",
+    followersTotal: "Total followers",
+    followersIg: "Instagram · 520K",
+    followersTk: "TikTok · 310K",
+    followersX: "Twitter/X · 180K",
+    exclusiveCard: "💙 EXCLUSIVE CONTENT 💙",
+    freePageCard: "ANOTHER free page",
+    digitalPacksCard: "Digital PACKS",
+    emailPlaceholder: "your@email.com",
+    emailButton: "Connect with me 💌",
+    alertThankYou: "Thank you! We registered: ",
+    alertConnect: "\n(Connect this form to your favorite email service)",
+    modalTitle: "Adult Content",
+    modalText: "This link contains exclusive material for people over 18. Do you confirm you are of legal age to enter?",
+    modalCancel: "No, leave",
+    modalConfirm: "Yes, enter",
+    soonTitle: "Coming Soon",
+    soonText: "More exclusive content coming soon for you! Stay tuned. ❤",
+    soonClose: "Got it",
+    privacyPolicy: "Privacy Policy",
+    terms: "Terms of Service",
+    report: "Report"
+  }
+};
+
+document.getElementById("name").childNodes[0].textContent = CONFIG.nombre + " ";
+document.getElementById("handle").textContent = CONFIG.usuario;
+const followerCountEl = document.getElementById("followerCount");
+if (followerCountEl) followerCountEl.textContent = CONFIG.seguidores;
+document.getElementById("mailText").textContent = CONFIG.email;
+document.getElementById("mailLink").href = "mailto:" + CONFIG.email;
+
+function changeLanguage(lang) {
+  localStorage.setItem("prefLang", lang);
+
+  // Activar botón visualmente
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+  const activeBtn = document.getElementById(`lang-${lang}`);
+  if (activeBtn) activeBtn.classList.add("active");
+
+  // Traducir textos
+  const dict = TRANSLATIONS[lang];
+  if (!dict) return;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (dict[key]) {
+      el.textContent = dict[key];
+    }
+  });
+
+  // Traducir placeholders
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (dict[key]) {
+      el.placeholder = dict[key];
+    }
+  });
+
+  document.title = `${CONFIG.nombre} — ${dict.title}`;
+}
+
+function initLanguage() {
+  const saved = localStorage.getItem("prefLang");
+  if (saved && TRANSLATIONS[saved]) {
+    changeLanguage(saved);
+  } else {
+    const userLang = ((navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || "es").toLowerCase();
+    const defaultLang = userLang.startsWith("es") ? "es" : "en";
+    changeLanguage(defaultLang);
+  }
+}
+
+// Inicializar idioma al cargar la página
+initLanguage();
+
+function suscribir(e){
+  e.preventDefault();
+  const emailInput = document.getElementById("fanEmail");
+  const email = emailInput.value;
+  const currentLang = localStorage.getItem("prefLang") || "es";
+  const dict = TRANSLATIONS[currentLang];
+
+  const btn = document.getElementById("emailBtn");
+  if (btn) btn.disabled = true;
+
+  fetch("https://formsubmit.co/ajax/mapanetwortk@gmail.com", {
+    method: "POST",
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+      _subject: "Nuevo registro de fan en Link-in-Bio — " + CONFIG.nombre
+    })
+  })
+  .then(() => {
+    alert(dict.alertThankYou + email + "\n" + dict.alertConnect);
+    e.target.reset();
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert(dict.alertThankYou + email + "\n" + dict.alertConnect);
+    e.target.reset();
+  })
+  .finally(() => {
+    if (btn) btn.disabled = false;
+  });
+}
+
+// Slider horizontal click & drag logic
+const gallery = document.getElementById("gallery");
+const prevBtn = document.getElementById("galleryPrev");
+const nextBtn = document.getElementById("galleryNext");
+
+if (prevBtn && nextBtn && gallery) {
+  prevBtn.addEventListener("click", () => {
+    gallery.scrollBy({ left: -200, behavior: "smooth" });
+  });
+  nextBtn.addEventListener("click", () => {
+    gallery.scrollBy({ left: 200, behavior: "smooth" });
+  });
+}
+
+let isDown = false;
+let startX;
+let scrollLeft;
+
+if (gallery) {
+  gallery.addEventListener("mousedown", (e) => {
+    isDown = true;
+    gallery.style.cursor = "grabbing";
+    startX = e.pageX - gallery.offsetLeft;
+    scrollLeft = gallery.scrollLeft;
+  });
+  
+  gallery.addEventListener("mouseleave", () => {
+    isDown = false;
+    gallery.style.cursor = "grab";
+  });
+  
+  gallery.addEventListener("mouseup", () => {
+    isDown = false;
+    gallery.style.cursor = "grab";
+  });
+  
+  gallery.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - gallery.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    gallery.scrollLeft = scrollLeft - walk;
+  });
+}
+
+// Lógica de Popup de Verificación de Edad
+const ageModal = document.getElementById("ageModal");
+const ageConfirmBtn = document.getElementById("ageConfirmBtn");
+const ageCancelBtn = document.getElementById("ageCancelBtn");
+
+function abrirVerificacionEdad(e) {
+  e.preventDefault();
+  if (ageModal) {
+    ageModal.classList.add("open");
+  }
+}
+
+function cerrarVerificacionEdad() {
+  if (ageModal) {
+    ageModal.classList.remove("open");
+  }
+}
+
+if (ageConfirmBtn) {
+  ageConfirmBtn.addEventListener("click", () => {
+    cerrarVerificacionEdad();
+    window.open("https://onlyfans.com/tuflakitasexyy", "_blank");
+  });
+}
+
+if (ageCancelBtn) {
+  ageCancelBtn.addEventListener("click", () => {
+    cerrarVerificacionEdad();
+  });
+}
+
+// Lógica de Popup de Próximamente
+const soonModal = document.getElementById("soonModal");
+const soonCloseBtn = document.getElementById("soonCloseBtn");
+
+function abrirProximamente(e) {
+  e.preventDefault();
+  if (soonModal) {
+    soonModal.classList.add("open");
+  }
+}
+
+function cerrarProximamente() {
+  if (soonModal) {
+    soonModal.classList.remove("open");
+  }
+}
+
+if (soonCloseBtn) {
+  soonCloseBtn.addEventListener("click", () => {
+    cerrarProximamente();
+  });
+}
+
+// Cerrar al hacer clic fuera del cuadro (overlay)
+if (ageModal) {
+  ageModal.addEventListener("click", (e) => {
+    if (e.target === ageModal) cerrarVerificacionEdad();
+  });
+}
+if (soonModal) {
+  soonModal.addEventListener("click", (e) => {
+    if (e.target === soonModal) cerrarProximamente();
+  });
+}
+</script>
+</body>
+</html>
