@@ -89,11 +89,14 @@
   .socials a{
     width:42px;height:42px;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
-    color:#fff;text-decoration:none;
+    background:#fff !important;
+    border: none !important;
+    text-decoration:none;
     transition:transform .15s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   }
   .socials a:hover{transform:scale(1.12);}
-  .socials svg{width:21px;height:21px;fill:currentColor;}
+  .socials svg{width:21px;height:21px;}
   .ic-of{background:linear-gradient(135deg,#4aa8ff,#1d7fe8);}
   .ic-threads{background:#000;border:1.5px solid #333;}
   .ic-patreon{background:#f1465a;}
@@ -429,8 +432,8 @@
 
   /* ───── POPUP DE EDAD ULTRA-PREMIUM ───── */
   .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.82);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 9999; padding: 24px;
@@ -439,55 +442,76 @@
     opacity: 1; pointer-events: auto;
   }
   .modal-box {
-    background: rgba(20, 20, 22, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 28px;
-    width: 100%; max-width: 380px; padding: 36px 28px; text-align: center;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 80px rgba(233, 30, 140, 0.1);
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    width: 100%; max-width: 380px;
+    padding: 40px 28px; text-align: center;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
     transform: scale(0.92) translateY(15px); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
   }
   .modal-overlay.open .modal-box {
     transform: scale(1) translateY(0);
   }
-  .modal-badge {
-    width: 68px; height: 68px; border-radius: 50%;
-    background: linear-gradient(135deg, rgba(233, 30, 140, 0.2), rgba(194, 24, 91, 0.2));
-    border: 1px solid rgba(233, 30, 140, 0.4); display: inline-flex; align-items: center; justify-content: center;
-    font-size: 32px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(233, 30, 140, 0.3);
-    animation: pulseGlow 2s infinite alternate;
+  .modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
   }
-  @keyframes pulseGlow {
-    from { box-shadow: 0 0 15px rgba(233, 30, 140, 0.2); transform: scale(1); }
-    to { box-shadow: 0 0 25px rgba(233, 30, 140, 0.45); transform: scale(1.04); }
+  .modal-close-btn:hover {
+    color: #fff;
+  }
+  .modal-close-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  .modal-warning-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .modal-warning-icon svg {
+    width: 44px;
+    height: 44px;
+    stroke-width: 1.8;
   }
   .modal-title {
-    font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 12px; letter-spacing: 0.5px;
+    font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 16px; letter-spacing: 0.5px;
   }
   .modal-text {
-    font-size: 14.5px; color: #a1a1aa; line-height: 1.6; margin-bottom: 28px; font-weight: 400;
+    font-size: 14.5px; color: #a1a1aa; line-height: 1.6; margin-bottom: 30px; font-weight: 400;
   }
-  .modal-buttons {
-    display: flex; gap: 12px;
+  .modal-btn-continue {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 0;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, background-color 0.15s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
-  .modal-btn {
-    flex: 1; border: 0; outline: 0; border-radius: 999px; padding: 14px;
-    font-size: 15px; font-weight: 700; cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  .modal-btn-continue:hover {
+    background: #e6e6e6;
+    transform: scale(1.02);
   }
-  .modal-btn.confirm {
-    background: linear-gradient(135deg, #ff6fb5, #e91e8c); color: #fff;
-    box-shadow: 0 8px 20px rgba(233, 30, 140, 0.3);
-  }
-  .modal-btn.confirm:hover {
-    transform: translateY(-2px); box-shadow: 0 12px 24px rgba(233, 30, 140, 0.45);
-  }
-  .modal-btn.cancel {
-    background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); color: #d4d4d8;
-  }
-  .modal-btn.cancel:hover {
-    background: rgba(255, 255, 255, 0.12); color: #fff;
-  }
-  .modal-btn:active {
-    transform: translateY(1px);
+  .modal-btn-continue:active {
+    transform: scale(0.98);
   }
 
   /* ───── LANGUAGE SELECTOR ───── */
@@ -550,11 +574,60 @@
 
   <!-- ICONOS SOCIALES -->
   <nav class="socials" id="socialIcons">
-    <a class="ic-ig" href="https://www.instagram.com/danitatuflakita" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.3.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.3-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.3-.4 1.2-.1 1.6-.1 4.8-.1zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.5.2-1.8.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.3-.3.7-.3 1.8-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.5.3 1.8.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.1.7.3 1.8.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.5-.2 1.8-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.3.3-.7.3-1.8.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.5-.3-1.8-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.3-.1-.7-.3-1.8-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.1a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 8.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.4-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></a>
-    <a class="ic-threads" href="https://www.threads.net/@danitatuflakita" target="_blank" rel="noopener" title="Threads"><svg viewBox="0 0 24 24"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"/></svg></a>
-    <a class="ic-fb" href="https://www.facebook.com/danitaTuFlakita" target="_blank" rel="noopener" title="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V5c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.5v3h2.8v7h2.2z"/></svg></a>
-    <a class="ic-x" href="https://x.com/danita_tuFlaqui" target="_blank" rel="noopener" title="X / Twitter"><svg viewBox="0 0 24 24"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-6.1l-4.8-6.3L5.3 21h-3l7-8.1L2.5 3h6.2l4.3 5.7L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/></svg></a>
-    <a class="ic-tt" href="https://www.tiktok.com/@danitatuflakita" target="_blank" rel="noopener" title="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z"/></svg></a>
+    <!-- Instagram -->
+    <a class="ic-ig" href="https://www.instagram.com/danitatuflakita" target="_blank" rel="noopener" title="Instagram">
+      <svg viewBox="0 0 24 24">
+        <defs>
+          <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#fdf497" />
+            <stop offset="5%" stop-color="#fdf497" />
+            <stop offset="45%" stop-color="#fd5949" />
+            <stop offset="60%" stop-color="#d6249f" />
+            <stop offset="90%" stop-color="#285aeb" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#ig-grad)" d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.3.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.3-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.3-.4 1.2-.1 1.6-.1 4.8-.1zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.5.2-1.8.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.3-.3.7-.3 1.8-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.5.3 1.8.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.1.7.3 1.8.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.5-.2 1.8-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.3.3-.7.3-1.8.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.5-.3-1.8-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.3-.1-.7-.3-1.8-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.1a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 8.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.4-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/>
+      </svg>
+    </a>
+    <!-- OnlyFans Padlock -->
+    <a class="ic-of" href="#" onclick="abrirVerificacionEdad(event)" title="OnlyFans">
+      <svg viewBox="0 0 54 54" style="width: 25px; height: 25px;">
+        <circle cx="27" cy="27" r="24" stroke="#00aff0" stroke-width="2.5"/>
+        <circle cx="27" cy="27" r="19" fill="#00aff0"/>
+        <rect x="19" y="25" width="16" height="12" rx="2" fill="#fff"/>
+        <path d="M22 25V20.5a5 5 0 0 1 10 0V25" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="27" cy="30" r="1.5" fill="#00aff0"/>
+        <path d="M27 31.5V34" stroke="#00aff0" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <!-- TikTok -->
+    <a class="ic-tt" href="https://www.tiktok.com/@danitatuflakita" target="_blank" rel="noopener" title="TikTok">
+      <svg viewBox="0 0 24 24">
+        <g fill="none" stroke-width="0">
+          <path fill="#fe2c55" d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z" transform="translate(0.6, 0.6)" />
+          <path fill="#25f4ee" d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z" transform="translate(-0.6, -0.6)" />
+          <path fill="#000" d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z" />
+        </g>
+      </svg>
+    </a>
+    <!-- X -->
+    <a class="ic-x" href="https://x.com/danita_tuFlaqui" target="_blank" rel="noopener" title="X / Twitter">
+      <svg viewBox="0 0 24 24">
+        <path fill="#000" d="M17.5 3h3l-6.6 7.6L21.7 21h-6.1l-4.8-6.3L5.3 21h-3l7-8.1L2.5 3h6.2l4.3 5.7L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/>
+      </svg>
+    </a>
+    <!-- Snapchat -->
+    <a class="ic-snap" href="https://www.snapchat.com/add/danitatuflakita" target="_blank" rel="noopener" title="Snapchat">
+      <svg viewBox="0 0 16 16" style="width: 22px; height: 22px;">
+        <path fill="#fffc00" stroke="#000" stroke-width="0.8" d="M15.943 11.526c-.111-.303-.323-.465-.564-.599a1 1 0 0 0-.123-.064l-.219-.111c-.752-.399-1.339-.902-1.746-1.498a3.4 3.4 0 0 1-.3-.531c-.034-.1-.032-.156-.008-.207a.3.3 0 0 1 .097-.1c.129-.086.262-.173.352-.231.162-.104.289-.187.371-.245.309-.216.525-.446.66-.702a1.4 1.4 0 0 0 .069-1.16c-.205-.538-.713-.872-1.329-.872a1.8 1.8 0 0 0-.487-.065c.006-.368-.002-.757-.035-1.139-.116-1.344-.587-2.048-1.077-2.61a4.3 4.3 0 0 0-1.095-.881C9.764.216 8.92 0 7.999 0s-1.76.216-2.505.641c-.412.232-.782.53-1.097.883-.49.562-.96 1.267-1.077 2.61-.033.382-.04.772-.036 1.138a1.8 1.8 0 0 0-.487-.065c-.615 0-1.124.335-1.328.873a1.4 1.4 0 0 0 .067 1.161c.136.256.352.486.66.701.082.058.21.14.371.246l.339.221a.4.4 0 0 1 .109.11c.026.053.027.11-.012.217a3.4 3.4 0 0 1-.295.52c-.398.583-.968 1.077-1.696 1.472-.385.204-.786.34-.955.8-.128.348-.044.743.28 1.075q.18.189.409.31a4.4 4.4 0 0 0 1 .4.7.7 0 0 1 .202.09c.118.104.102.26.259.488q.12.178.296.3c.33.229.701.243 1.095.258.355.014.758.03 1.217.18.19.064.389.186.618.328.55.338 1.305.802 2.566.802 1.262 0 2.02-.466 2.576-.806.227-.14.424-.26.609-.321.46-.152.863-.168 1.218-.181.393-.015.764-.03 1.095-.258a1.14 1.14 0 0 0 .336-.368c.114-.192.11-.327.217-.42a.6.6 0 0 1 .19-.087 4.5 4.5 0 0 0 1.014-.404c.16-.087.306-.2.429-.336l.004-.005c.304-.325.38-.709.256-1.047z"/>
+      </svg>
+    </a>
+    <!-- Threads -->
+    <a class="ic-threads" href="https://www.threads.net/@danitatuflakita" target="_blank" rel="noopener" title="Threads">
+      <svg viewBox="0 0 24 24">
+        <path fill="#000" d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"/>
+      </svg>
+    </a>
   </nav>
 
   <!-- SEGUIDORES
@@ -670,13 +743,27 @@
 <!-- MODAL VERIFICACIÓN DE EDAD -->
 <div class="modal-overlay" id="ageModal">
   <div class="modal-box">
-    <div class="modal-badge">🔞</div>
-    <div class="modal-title" data-i18n="modalTitle">Contenido Adultos</div>
-    <div class="modal-text" data-i18n="modalText">Este enlace contiene material exclusivo para mayores de 18 años. ¿Confirmas que eres mayor de edad para ingresar?</div>
-    <div class="modal-buttons">
-      <button class="modal-btn cancel" id="ageCancelBtn" data-i18n="modalCancel">No, salir</button>
-      <button class="modal-btn confirm" id="ageConfirmBtn" data-i18n="modalConfirm">Sí, ingresar</button>
+    <button class="modal-close-btn" onclick="cerrarVerificacionEdad()" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="modal-warning-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+      </svg>
     </div>
+    
+    <div class="modal-title" data-i18n="warningModalTitle">18+ Content Warning</div>
+    <div class="modal-text">
+      <span data-i18n="warningModalText1">You must be 18 or older to continue.</span><br>
+      <span data-i18n="warningModalText2">This OF link may contain graphic or adult content.</span>
+    </div>
+    
+    <button class="modal-btn-continue" onclick="abrirOnlyFans(event)" data-i18n="warningModalBtn">Continue (18+)</button>
   </div>
 </div>
 
@@ -737,7 +824,11 @@ const TRANSLATIONS = {
     report: "Reportar",
     disclaimerTitle: "Aviso de Contenido Adulto",
     disclaimerText: "Este enlace puede contener contenido gráfico o para adultos.",
-    disclaimerBtn: "Continuar (18+)"
+    disclaimerBtn: "Continuar (18+)",
+    warningModalTitle: "Advertencia de Contenido 18+",
+    warningModalText1: "Debes ser mayor de 18 años para continuar.",
+    warningModalText2: "Este enlace de OF puede contener contenido gráfico o para adultos.",
+    warningModalBtn: "Continuar (18+)"
   },
   en: {
     title: "Links",
@@ -769,7 +860,11 @@ const TRANSLATIONS = {
     report: "Report",
     disclaimerTitle: "Mature Content Disclaimer",
     disclaimerText: "This link may contain graphic or adult content.",
-    disclaimerBtn: "Continue (18+)"
+    disclaimerBtn: "Continue (18+)",
+    warningModalTitle: "18+ Content Warning",
+    warningModalText1: "You must be 18 or older to continue.",
+    warningModalText2: "This OF link may contain graphic or adult content.",
+    warningModalBtn: "Continue (18+)"
   }
 };
 
